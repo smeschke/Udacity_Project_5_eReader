@@ -30,7 +30,7 @@
         android:text="test byline"
         android:textColor="#8fff" />
 
-    <ScrollView
+<!--    <ScrollView
         android:layout_width="wrap_content"
         android:layout_height="match_parent">
 
@@ -45,5 +45,9 @@
             android:text="test body"
             android:textColor="@color/theme_primary"
             android:textColorLink="@color/theme_accent" />
-    </ScrollView>
+    </ScrollView>-->
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 </LinearLayout>
