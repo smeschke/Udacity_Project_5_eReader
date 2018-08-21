@@ -4,7 +4,6 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/Udacity_Project_5_eReader.iml" filepath="$PROJECT_DIR$/.idea/Udacity_Project_5_eReader.iml" />
       <module fileurl="file://$PROJECT_DIR$/XYZReader/XYZReader.iml" filepath="$PROJECT_DIR$/XYZReader/XYZReader.iml" />
-      <module fileurl="file://$PROJECT_DIR$/XYZReader/XYZReader.iml" filepath="$PROJECT_DIR$/XYZReader/XYZReader.iml" />
       <module fileurl="file://$PROJECT_DIR$/notEnotBook.iml" filepath="$PROJECT_DIR$/notEnotBook.iml" />
     </modules>
   </component>

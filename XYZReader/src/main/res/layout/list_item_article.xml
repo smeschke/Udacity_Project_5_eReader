@@ -8,6 +8,7 @@
     android:layout_marginBottom="4dp"
     android:clickable="true"
     android:focusable="true"
+    app:cardCornerRadius="16dp"
     android:foreground="?selectableItemBackground">
 
     <LinearLayout
@@ -18,8 +19,9 @@
         <!--suppress AndroidLintContentDescription -->
         <ImageView
             android:id="@+id/thumbnail"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:scaleType="centerCrop"
             android:background="@color/photo_placeholder" />
 
         <TextView

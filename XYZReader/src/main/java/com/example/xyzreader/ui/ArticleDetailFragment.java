@@ -2,8 +2,10 @@ package com.example.xyzreader.ui;
 
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -70,25 +72,31 @@ public class ArticleDetailFragment extends android.support.v4.app.Fragment {
 
     private void bindViews() {
         if (mTitle != null) {
-            ImageView photoView = (ImageView) mRootView.findViewById(R.id.photo);
+            /*ImageView photoView = (ImageView) mRootView.findViewById(R.id.photo);
             TextView titleView = (TextView) mRootView.findViewById(R.id.article_title);
             TextView bylineView = (TextView) mRootView.findViewById(R.id.article_byline);
-            //TextView bodyView = (TextView) mRootView.findViewById(R.id.article_body);
             titleView.setText(mTitle);
             bylineView.setText(mDate + " " + mAuthor);
-            //bodyView.setText(mBody);
+            Picasso.get().load(mPhoto).into(photoView);*/
+
+
+            //https://stackoverflow.com/questions/31504358/android-home-button-in-collapsing-toolbar-with-image
+            CollapsingToolbarLayout collapsingToolbar = (CollapsingToolbarLayout) mRootView.findViewById(R.id.collapsing_toolbar);
+            collapsingToolbar.setTitle(mAuthor + " - " + mDate);
+
+            ImageView photoView = (ImageView) mRootView.findViewById(R.id.photo);
             Picasso.get().load(mPhoto).into(photoView);
 
             mText = mBody;
+            mText = mText.substring(0,3456);
 
             ArrayList<String> list = new ArrayList<String>();
             int paragraph_length = 345;
             while (mText.length()>paragraph_length){
-                list.add(mText.substring(0,paragraph_length) + "\n\n");
+                list.add(mText.substring(0,paragraph_length));
                 mText = mText.substring(paragraph_length);
             }
             list.add(mText);
-
 
             //code for recycler view
             mList = (RecyclerView) mRootView.findViewById(R.id.rv_list);
@@ -98,7 +106,6 @@ public class ArticleDetailFragment extends android.support.v4.app.Fragment {
             mList.setHasFixedSize(true);
             mAdapter = new mAdapter(getActivity().getApplicationContext(), list);
             mList.setAdapter(mAdapter);
-
         }
     }
 }
