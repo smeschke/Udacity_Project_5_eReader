@@ -5,11 +5,9 @@ import android.content.Loader;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.ImageView;
 
 import com.example.xyzreader.R;
 import com.example.xyzreader.data.ArticleLoader;
-import com.squareup.picasso.Picasso;
 
 /**
  * An activity representing a single Article detail screen, letting you swipe between articles.
@@ -18,6 +16,12 @@ import com.squareup.picasso.Picasso;
 public class ArticleDetailActivity extends AppCompatActivity
         implements LoaderManager.LoaderCallbacks<Cursor> {
 
+    public static final String KEY_TITLE = "title";
+    public static final String KEY_STORY = "story";
+    public static final String KEY_BODY = "body";
+    public static final String KEY_DATE = "date";
+    public static final String KEY_AUTHOR = "author";
+    public static final String KEY_PHOTO = "photo";
     private Cursor mCursor;
     private int mStoryId;
     private String mAuthor;
@@ -25,12 +29,6 @@ public class ArticleDetailActivity extends AppCompatActivity
     private String mTitle;
     private String mPhoto;
     private String mDate;
-    public static final String KEY_TITLE = "title";
-    public static final String KEY_STORY = "story";
-    public static final String KEY_BODY = "body";
-    public static final String KEY_DATE = "date";
-    public static final String KEY_AUTHOR = "author";
-    public static final String KEY_PHOTO = "photo";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
