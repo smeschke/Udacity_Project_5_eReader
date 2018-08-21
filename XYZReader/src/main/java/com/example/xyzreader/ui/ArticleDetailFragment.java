@@ -49,7 +49,7 @@ public class ArticleDetailFragment extends android.support.v4.app.Fragment {
         mAuthor = getArguments().getString(ArticleDetailActivity.KEY_AUTHOR);
         mPhoto = getArguments().getString(ArticleDetailActivity.KEY_PHOTO);
         mBody = getArguments().getString(ArticleDetailActivity.KEY_BODY);
-        mBody = mBody.replaceAll("(\r\n|\n)", "");
+
         //mBody = mBody.substring(0, 2345);
         mDate = mDate.substring(0, 4);
         setHasOptionsMenu(true);
@@ -88,13 +88,23 @@ public class ArticleDetailFragment extends android.support.v4.app.Fragment {
             Picasso.get().load(mPhoto).into(photoView);
 
             mText = mBody;
-            mText = mText.substring(0,3456);
+            //mText = mText.substring(0,3456);
 
             ArrayList<String> list = new ArrayList<String>();
-            int paragraph_length = 345;
+            int paragraph_length = 500;
+            int base_length = 150;
+            String base = "";
+            int cutoff = 0; // this is where the first break is found
             while (mText.length()>paragraph_length){
-                list.add(mText.substring(0,paragraph_length));
-                mText = mText.substring(paragraph_length);
+                base = mText.substring(0,base_length);
+                mText = mText.substring(base_length);
+                cutoff = mText.indexOf("\r\n\r\n");
+                base += mText.substring(0,cutoff);
+                mText = mText.substring(cutoff);
+                base = base.replaceAll("(\r\n)", "");
+                list.add(base);
+                //list.add(mText.substring(0,paragraph_length));
+                //mText = mText.substring(paragraph_length);
             }
             list.add(mText);
 
