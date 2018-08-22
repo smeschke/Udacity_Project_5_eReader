@@ -2,12 +2,16 @@ package com.example.xyzreader.ui;
 
 import android.app.LoaderManager;
 import android.content.Loader;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.Snackbar;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -25,12 +29,6 @@ import java.util.ArrayList;
 public class ArticleDetailActivity extends AppCompatActivity
         implements LoaderManager.LoaderCallbacks<Cursor> {
 
-    public static final String KEY_TITLE = "title";
-    public static final String KEY_STORY = "story";
-    public static final String KEY_BODY = "body";
-    public static final String KEY_DATE = "date";
-    public static final String KEY_AUTHOR = "author";
-    public static final String KEY_PHOTO = "photo";
     public mAdapter mAdapter;
     public RecyclerView mList;
     LinearLayoutManager mLayoutManager;
@@ -41,14 +39,27 @@ public class ArticleDetailActivity extends AppCompatActivity
     private String mTitle;
     private String mPhoto;
     private String mDate;
+    private int mBookmark;
+    private ArrayList<String> mBodyList  = new ArrayList<String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_article_detail);
 
+        // https://stackoverflow.com/questions/51318506/up-navigation-in-fragments-toolbar
+        // This was not quite the question, but the answer works regardless...
+        AppCompatActivity appCompatActivity = ((AppCompatActivity) this);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.setNavigationIcon(R.drawable.ic_arrow_back);
+        appCompatActivity.setSupportActionBar(toolbar);
+        ActionBar actionBar = appCompatActivity.getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true); //<-- DISPLAYS THE HOME BUTTON IN THE COLLAPSING TOOLBAR
+        actionBar.setDisplayShowTitleEnabled(false);
+
         // Get the position of the story in the DB, this is passed from the ArticleListActivity
         mStoryId = getIntent().getExtras().getInt(ArticleListActivity.ID_KEY);
+
         // Initialize the loader manager
         getLoaderManager().initLoader(0, null, this);
     }
@@ -69,7 +80,13 @@ public class ArticleDetailActivity extends AppCompatActivity
             mPhoto = mCursor.getString(ArticleLoader.Query.PHOTO_URL);
             mTitle = mCursor.getString(ArticleLoader.Query.TITLE);
             mBody = mCursor.getString(ArticleLoader.Query.BODY);
-            mDate = mCursor.getString(ArticleLoader.Query.PUBLISHED_DATE);
+            mDate = mCursor.getString(ArticleLoader.Query.PUBLISHED_DATE).substring(0,4);
+
+            // Get the position from the bookmark
+            SharedPreferences settings = getApplicationContext().
+                    getSharedPreferences("key", 0);
+            mBookmark = settings.getInt("bookmark" + mTitle, 0);
+
             bindViews();
         }
     }
@@ -84,7 +101,7 @@ public class ArticleDetailActivity extends AppCompatActivity
 
             //https://stackoverflow.com/questions/31504358/android-home-button-in-collapsing-toolbar-with-image
             CollapsingToolbarLayout collapsingToolbar = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
-            collapsingToolbar.setTitle(mAuthor + " - " + mDate);
+            collapsingToolbar.setTitle(mTitle);
 
             // Load the image into the image view
             ImageView photoView = (ImageView) findViewById(R.id.photo);
@@ -93,11 +110,13 @@ public class ArticleDetailActivity extends AppCompatActivity
             // Parse the body text into a list, so that it can be displayed in a RecyclerView
             // This should be moved so that the list is parsed and THEN inserted into the database.
             String mText = mBody;
-            ArrayList<String> list = new ArrayList<String>();
+            // Add the author and published date as the first element
+            mBodyList.add("\n" + mAuthor + " - " + mDate + "\n");
             int paragraph_length = 500;
             int base_length = 150;
             String base = "";
             int cutoff = 0; // this is where the first break is found
+            // This while loop is what is taking so long.
             while (mText.length() > paragraph_length) {
                 base = mText.substring(0, base_length);
                 mText = mText.substring(base_length);
@@ -106,9 +125,9 @@ public class ArticleDetailActivity extends AppCompatActivity
                 base += mText.substring(0, cutoff);
                 mText = mText.substring(cutoff);
                 base = base.replaceAll("(\r\n)", " ");
-                list.add(base);
+                mBodyList.add(base);
             }
-            list.add(mText);
+            mBodyList.add(mText);
 
             // Code for recycler view to display the body.
             mList = (RecyclerView) findViewById(R.id.rv_list);
@@ -116,14 +135,30 @@ public class ArticleDetailActivity extends AppCompatActivity
                     LinearLayoutManager.VERTICAL, false);
             mList.setLayoutManager(mLayoutManager);
             mList.setHasFixedSize(true);
-            mAdapter = new mAdapter(this, list);
+            mAdapter = new mAdapter(this, mBodyList);
             mList.setAdapter(mAdapter);
-            mLayoutManager.scrollToPosition(123);
+            mLayoutManager.scrollToPosition(mBookmark);
         }
     }
 
     public void bookmark(View view){
-        int scroll_position = mLayoutManager.findFirstVisibleItemPosition();
+        int scroll_position = mLayoutManager.findFirstCompletelyVisibleItemPosition();
+        SharedPreferences settings = getApplicationContext().
+                getSharedPreferences("key", 0);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putInt("bookmark" + mTitle, scroll_position).commit();
         Log.d("LOG", "asdf scroll position: " + scroll_position);
+
+        final Snackbar mySnackbar = Snackbar.make(findViewById(R.id.coordinator),
+                "Bookmark placed at paragraph: " + scroll_position + " of " + mBodyList.size() + ".",
+                Snackbar.LENGTH_LONG);
+        mySnackbar.setAction("Close", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mySnackbar.dismiss();
+            }
+        });
+        mySnackbar.show();
+
     }
 }

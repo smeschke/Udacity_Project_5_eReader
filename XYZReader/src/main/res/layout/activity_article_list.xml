@@ -17,8 +17,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fitsSystemWindows="true"
-            android:elevation="16dp"
-            app:contentScrim="?attr/colorPrimary"
+
+            app:contentScrim="@color/dark_gray"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:title="@string/welcome_xyz_reader">
 
@@ -26,9 +26,9 @@
                 android:id="@+id/photo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:elevation="16dp"
+                android:elevation="64dp"
                 android:padding="64dp"
-                android:scaleType="centerCrop"
+                android:scaleType="fitCenter"
                 android:src="@drawable/logo" />
 
             <android.support.v7.widget.Toolbar
