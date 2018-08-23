@@ -16,12 +16,14 @@
 -->
 
 <resources>
+
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/primary</item>
         <item name="colorPrimaryDark">@color/primary_dark</item>
         <item name="colorAccent">@color/accent</item>
     </style>
+
     <style name="Theme.Bacon" parent="@style/Theme.AppCompat.Light.NoActionBar">
 
     </style>
@@ -34,4 +36,102 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
+
+    <style name="Recyclerview">
+        <item name="android:paddingTop">@dimen/list_side_margin</item>
+        <item name="android:paddingLeft">@dimen/list_side_margin</item>
+        <item name="android:paddingRight">@dimen/list_side_margin</item>
+        <item name="android:paddingBottom">@dimen/list_side_margin</item>
+        <item name="android:clipToPadding">false</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_width">match_parent</item>
+    </style>
+
+    <style name="RecyclerViewBody">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">@dimen/body_text_margin</item>
+        <item name="android:layout_marginRight">@dimen/body_text_margin</item>
+    </style>
+
+    <style name="ToolBar">
+        <item name="android:layout_height">?attr/actionBarSize</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:elevation">@dimen/toolbar_elevation</item>
+    </style>
+
+    <style name="Coordinator">
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_width">match_parent</item>
+    </style>
+
+    <style name="ListActivityToolBarImage">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:padding">@dimen/title_bar_image_padding</item>
+        <item name="android:scaleType">fitCenter</item>
+    </style>
+
+    <style name="ImageViewStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:scaleType">centerCrop</item>
+        <item name="android:background">@color/photo_placeholder</item>
+    </style>
+
+    <style name="CollapsingToolbar">
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:fitsSystemWindows">true</item>
+    </style>
+
+    <style name="AppBar">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:elevation">@dimen/toolbar_elevation</item>
+        <item name="android:fitsSystemWindows">true</item>
+        <item name="android:background">@color/primary</item>
+    </style>
+
+    <style name="FloatingActionButton">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:elevation">@dimen/fab_elevation</item>
+        <item name="android:clickable">true</item>
+        <item name="android:layout_gravity">bottom|end</item>
+        <item name="android:layout_margin">@dimen/fab_margin</item>
+    </style>
+
+    <style name="BodyTextView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/primary_dark</item>
+        <item name="android:textSize">@dimen/detail_body_text_size</item>
+    </style>
+
+    <style name="CardViewLinearLayout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@color/photo_placeholder</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="CardViewLayout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">@dimen/cardview_margin</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:foreground">?selectableItemBackground</item>
+    </style>
+
+    <style name="CardTextView">
+        <item name="android:textSize">@dimen/title_text_size</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingLeft">@dimen/card_title_padding</item>
+        <item name="android:paddingRight">@dimen/card_title_padding</item>
+        <item name="android:textColor">@color/primary_dark</item>
+    </style>
+
 </resources>

@@ -41,6 +41,11 @@ public class ArticleDetailActivity extends AppCompatActivity
     private String mDate;
     private int mBookmark;
     private ArrayList<String> mBodyList  = new ArrayList<String>();
+    private static final String SHARED_PREFERENCES_KEY = "key";
+    private static final String SHARED_PREFERENCES_ID = "bookmark";
+    // Some magic parameters used to parse the long body text string into paragraphs.
+    private static final int PARAGRAPH_LENGTH = 500;
+    private static final int PARAGRAPH_BASE = 250;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +60,17 @@ public class ArticleDetailActivity extends AppCompatActivity
         appCompatActivity.setSupportActionBar(toolbar);
         ActionBar actionBar = appCompatActivity.getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true); //<-- DISPLAYS THE HOME BUTTON IN THE COLLAPSING TOOLBAR
-        actionBar.setDisplayShowTitleEnabled(false);
+        actionBar.setHomeButtonEnabled(true);
+
+        // Custom setting for the up navigation
+        // Must do this to preserve scroll position in ArticleListActivity
+        // https://stackoverflow.com/questions/30679133/override-up-button-in-action-bar
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         // Get the position of the story in the DB, this is passed from the ArticleListActivity
         mStoryId = getIntent().getExtras().getInt(ArticleListActivity.ID_KEY);
@@ -84,8 +99,8 @@ public class ArticleDetailActivity extends AppCompatActivity
 
             // Get the position from the bookmark
             SharedPreferences settings = getApplicationContext().
-                    getSharedPreferences("key", 0);
-            mBookmark = settings.getInt("bookmark" + mTitle, 0);
+                    getSharedPreferences(SHARED_PREFERENCES_KEY, 0);
+            mBookmark = settings.getInt(SHARED_PREFERENCES_ID + mTitle, 0);
 
             bindViews();
         }
@@ -112,14 +127,12 @@ public class ArticleDetailActivity extends AppCompatActivity
             String mText = mBody;
             // Add the author and published date as the first element
             mBodyList.add("\n" + mAuthor + " - " + mDate + "\n");
-            int paragraph_length = 1000;
-            int base_length = 500;
             String base = "";
             int cutoff = 0; // this is where the first break is found
             // This while loop is what is taking so long.
-            while (mText.length() > paragraph_length) {
-                base = mText.substring(0, base_length);
-                mText = mText.substring(base_length);
+            while (mText.length() > PARAGRAPH_LENGTH) {
+                base = mText.substring(0, PARAGRAPH_BASE);
+                mText = mText.substring(PARAGRAPH_BASE);
                 // The idea of parsing the body using \r\n\r\n and \r\n\ was from @siena on Slack
                 cutoff = mText.indexOf("\r\n\r\n");
                 base += mText.substring(0, cutoff);
@@ -144,21 +157,21 @@ public class ArticleDetailActivity extends AppCompatActivity
     public void bookmark(View view){
         int scroll_position = mLayoutManager.findFirstVisibleItemPosition();
         SharedPreferences settings = getApplicationContext().
-                getSharedPreferences("key", 0);
+                getSharedPreferences(SHARED_PREFERENCES_KEY, 0);
         SharedPreferences.Editor editor = settings.edit();
-        editor.putInt("bookmark" + mTitle, scroll_position).commit();
-        Log.d("LOG", "asdf scroll position: " + scroll_position);
-
-        final Snackbar mySnackbar = Snackbar.make(findViewById(R.id.coordinator),
-                "Bookmark placed at paragraph: " + scroll_position + " of " + mBodyList.size() + ".",
+        editor.putInt(SHARED_PREFERENCES_ID + mTitle, scroll_position).commit();
+        final Snackbar snackbar = Snackbar.make(findViewById(R.id.coordinator),
+                getResources().getString(R.string.bookmark_message) + " " +
+                        + scroll_position
+                        + " " + getResources().getString(R.string.of) + " " +
+                        + mBodyList.size() + ".",
                 Snackbar.LENGTH_LONG);
-        mySnackbar.setAction("Close", new View.OnClickListener() {
+        snackbar.setAction(getResources().getString(R.string.close), new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mySnackbar.dismiss();
+                snackbar.dismiss();
             }
         });
-        mySnackbar.show();
-
+        snackbar.show();
     }
 }

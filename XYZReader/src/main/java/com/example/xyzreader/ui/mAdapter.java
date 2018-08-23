@@ -17,13 +17,13 @@ public class mAdapter extends RecyclerView.Adapter<mAdapter.mAdapterViewHolder> 
     private final Context mContext;
     public ArrayList<String> output_list;
 
-    //get stuff on list from Main Activity
+    // Get the list and context
     public mAdapter(@NonNull Context context, ArrayList<String> ol) {
         mContext = context;
         output_list = ol;
     }
 
-    //when view holder is created, inflate the views
+    // When view holder is created, inflate the views
     @Override
     public mAdapter.mAdapterViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         int layoutId;
@@ -33,24 +33,24 @@ public class mAdapter extends RecyclerView.Adapter<mAdapter.mAdapterViewHolder> 
         return new mAdapterViewHolder(view);
     }
 
-    //bind data to view holder
+    // Bind data to view holder
     @Override
     public void onBindViewHolder(mAdapter.mAdapterViewHolder holder, int position) {
         holder.textView.setText(output_list.get(position));
     }
 
-    //How many? The size of the output_list.
+    // How many? The size of the output_list.
     @Override
     public int getItemCount() {
         return output_list.size();
     }
 
-    //setting up the recycler view, and clicks
+    // Setting up the recycler view
     class mAdapterViewHolder extends RecyclerView.ViewHolder {
-        //initialize views
+        // Initialize views
         public final TextView textView;
 
-        //super the views so that they can be bound - set click listener too
+        // Super the views so that they can be bound, there is no click listener
         mAdapterViewHolder(View view) {
             super(view);
             //image  and text views for tricks

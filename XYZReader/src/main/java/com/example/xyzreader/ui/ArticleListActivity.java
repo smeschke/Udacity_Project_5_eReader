@@ -118,11 +118,14 @@ public class ArticleListActivity extends AppCompatActivity implements
         @Override
         public void onBindViewHolder(ViewHolder holder, int position) {
             mCursor.moveToPosition(position);
+            // Set the title
             holder.titleView.setText(mCursor.getString(ArticleLoader.Query.TITLE));
+            // Set the author and date (using only the year)
             String author = mCursor.getString(ArticleLoader.Query.AUTHOR);
             String date = mCursor.getString(ArticleLoader.Query.PUBLISHED_DATE);
             date = date.substring(0, 4);
             holder.subtitleView.setText(author + " - " + date);
+            // Load the thumbnail using Picasso
             String thumbnail_url = mCursor.getString(ArticleLoader.Query.THUMB_URL);
             Picasso.get().load(thumbnail_url).into(holder.thumbnailView);
         }
