@@ -7,7 +7,7 @@
         android:id="@+id/list_item_text_view"
         android:textSize="16dp"
         android:layout_width="wrap_content"
-        android:textColor="@color/theme_primary_dark"
+        android:textColor="@color/primary_dark"
         android:layout_height="wrap_content" />
 
 </android.support.constraint.ConstraintLayout>

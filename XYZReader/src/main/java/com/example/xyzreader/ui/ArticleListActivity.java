@@ -122,7 +122,7 @@ public class ArticleListActivity extends AppCompatActivity implements
             String author = mCursor.getString(ArticleLoader.Query.AUTHOR);
             String date = mCursor.getString(ArticleLoader.Query.PUBLISHED_DATE);
             date = date.substring(0, 4);
-            holder.subtitleView.setText(date + author);
+            holder.subtitleView.setText(author + " - " + date);
             String thumbnail_url = mCursor.getString(ArticleLoader.Query.THUMB_URL);
             Picasso.get().load(thumbnail_url).into(holder.thumbnailView);
         }

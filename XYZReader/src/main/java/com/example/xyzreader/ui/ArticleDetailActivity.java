@@ -112,8 +112,8 @@ public class ArticleDetailActivity extends AppCompatActivity
             String mText = mBody;
             // Add the author and published date as the first element
             mBodyList.add("\n" + mAuthor + " - " + mDate + "\n");
-            int paragraph_length = 500;
-            int base_length = 150;
+            int paragraph_length = 1000;
+            int base_length = 500;
             String base = "";
             int cutoff = 0; // this is where the first break is found
             // This while loop is what is taking so long.
@@ -142,7 +142,7 @@ public class ArticleDetailActivity extends AppCompatActivity
     }
 
     public void bookmark(View view){
-        int scroll_position = mLayoutManager.findFirstCompletelyVisibleItemPosition();
+        int scroll_position = mLayoutManager.findFirstVisibleItemPosition();
         SharedPreferences settings = getApplicationContext().
                 getSharedPreferences("key", 0);
         SharedPreferences.Editor editor = settings.edit();
