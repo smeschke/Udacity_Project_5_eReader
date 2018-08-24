@@ -53,13 +53,12 @@ public class ArticleDetailActivity extends AppCompatActivity
         setContentView(R.layout.activity_article_detail);
 
         // https://stackoverflow.com/questions/51318506/up-navigation-in-fragments-toolbar
-        // This was not quite the question, but the answer works regardless...
         AppCompatActivity appCompatActivity = ((AppCompatActivity) this);
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back);
         appCompatActivity.setSupportActionBar(toolbar);
         ActionBar actionBar = appCompatActivity.getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true); //<-- DISPLAYS THE HOME BUTTON IN THE COLLAPSING TOOLBAR
+        actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeButtonEnabled(true);
 
         // Custom setting for the up navigation
