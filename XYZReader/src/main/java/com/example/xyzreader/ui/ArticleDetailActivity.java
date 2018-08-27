@@ -29,8 +29,8 @@ import java.util.ArrayList;
 public class ArticleDetailActivity extends AppCompatActivity
         implements LoaderManager.LoaderCallbacks<Cursor> {
 
-    public mAdapter mAdapter;
-    public RecyclerView mList;
+    private mAdapter mAdapter;
+    private RecyclerView mList;
     LinearLayoutManager mLayoutManager;
     private Cursor mCursor;
     private int mStoryId;

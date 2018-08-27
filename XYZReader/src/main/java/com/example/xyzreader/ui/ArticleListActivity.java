@@ -63,7 +63,7 @@ public class ArticleListActivity extends AppCompatActivity implements
         StaggeredGridLayoutManager sglm =
                 new StaggeredGridLayoutManager(columnCount, StaggeredGridLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(sglm);
-        // The only code that should go here is like notifiedDataSetChanged();
+        // The only code that should go here is like swapCursor()
     }
 
     @Override
@@ -72,6 +72,7 @@ public class ArticleListActivity extends AppCompatActivity implements
     }
     //------------------ END CURSOR LOADER METHODS -------------------------------------------------
 
+    // This adapter should really go in a separate class, but moving it to a new class 'Adapter'
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public ImageView thumbnailView;
         public TextView titleView;
