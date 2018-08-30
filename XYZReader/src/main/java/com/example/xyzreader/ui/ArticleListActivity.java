@@ -55,7 +55,6 @@ public class ArticleListActivity extends AppCompatActivity implements
 
     @Override
     public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor data) {
-        Log.d("LOG", "asdf onLoadFinished");
         mCursor = data;
         mAdapter.swapCursor(data);
     }
@@ -67,7 +66,6 @@ public class ArticleListActivity extends AppCompatActivity implements
 
     @Override
     public void onItemClick(int position) {
-        Log.d("LOG", "asdf position: " + position);
         // User has clicked on a story, send them to that story with an intent
         Intent toStory = new Intent(ArticleListActivity.this, ArticleDetailActivity.class);
         // In the intent, package where the story is in the DB

@@ -49,13 +49,6 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
     // Binds each poster to the cell
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Log.d("LOG", "asdf onBindViewHolder");
-        // Set the title
-        Log.d("LOG", "asdf onBindViewHolder" + " " + mTitles.get(position));
-        Log.d("LOG", "asdf onBindViewHolder" + " " + mThumbs.get(position));
-        Log.d("LOG", "asdf onBindViewHolder" + " " + mAuthors.get(position));
-        Log.d("LOG", "asdf onBindViewHolder" + " " + mDates.get(position));
-
         holder.titleView.setText(mTitles.get(position));
         // Set the author and date (using only the year)
         String author = mAuthors.get(position);
@@ -83,7 +76,6 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
         for (int i = 0; i < data.getCount(); i++) {
             data.moveToPosition(i);
             authors.add(data.getString(ArticleLoader.Query.AUTHOR));
-            Log.d("LOG", "asdf swapCursor" + authors.get(i));
             titles.add(data.getString(ArticleLoader.Query.TITLE));
             thumbs.add(data.getString(ArticleLoader.Query.THUMB_URL));
             dates.add(data.getString(ArticleLoader.Query.PUBLISHED_DATE).substring(0, 4));
