@@ -12,7 +12,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -29,7 +28,7 @@ import java.util.ArrayList;
 public class ArticleDetailActivity extends AppCompatActivity
         implements LoaderManager.LoaderCallbacks<Cursor> {
 
-    private mAdapter mAdapter;
+    private MyStoryAdapter MyStoryAdapter;
     private RecyclerView mList;
     LinearLayoutManager mLayoutManager;
     private Cursor mCursor;
@@ -147,8 +146,8 @@ public class ArticleDetailActivity extends AppCompatActivity
                     LinearLayoutManager.VERTICAL, false);
             mList.setLayoutManager(mLayoutManager);
             mList.setHasFixedSize(true);
-            mAdapter = new mAdapter(this, mBodyList);
-            mList.setAdapter(mAdapter);
+            MyStoryAdapter = new MyStoryAdapter(this, mBodyList);
+            mList.setAdapter(MyStoryAdapter);
             mLayoutManager.scrollToPosition(mBookmark);
         }
     }

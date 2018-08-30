@@ -12,20 +12,20 @@ import com.example.xyzreader.R;
 
 import java.util.ArrayList;
 
-public class mAdapter extends RecyclerView.Adapter<mAdapter.mAdapterViewHolder> {
+public class MyStoryAdapter extends RecyclerView.Adapter<MyStoryAdapter.mAdapterViewHolder> {
 
     private final Context mContext;
     public ArrayList<String> output_list;
 
     // Get the list and context
-    public mAdapter(@NonNull Context context, ArrayList<String> ol) {
+    public MyStoryAdapter(@NonNull Context context, ArrayList<String> ol) {
         mContext = context;
         output_list = ol;
     }
 
     // When view holder is created, inflate the views
     @Override
-    public mAdapter.mAdapterViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public MyStoryAdapter.mAdapterViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         int layoutId;
         layoutId = R.layout.list_item;
         View view = LayoutInflater.from(mContext).inflate(layoutId, parent, false);
@@ -35,7 +35,7 @@ public class mAdapter extends RecyclerView.Adapter<mAdapter.mAdapterViewHolder> 
 
     // Bind data to view holder
     @Override
-    public void onBindViewHolder(mAdapter.mAdapterViewHolder holder, int position) {
+    public void onBindViewHolder(MyStoryAdapter.mAdapterViewHolder holder, int position) {
         holder.textView.setText(output_list.get(position));
     }
 
